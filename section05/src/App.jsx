@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import './App.css'
-import Register from './Register'
+import Register from './components/Register'
+import HookExam from './components/HookExam'
 
 function App() {
 
   return (
     <>
-    <Register/>
+    <HookExam/>
     </>
   )
 }
