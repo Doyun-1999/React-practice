@@ -1,47 +1,69 @@
 import { useState } from "react";
+import { useRef } from "react";
 
 const Register = () => {
-    const [name, setName] = useState("이름");
-    const [birth, setBirth] = useState("");
-    const [country, setCountry] = useState("");
-    const [introduce, setIntroduce] = useState("");
+    const [input, setInput] = useState({
+        name: "",
+        birth: "",
+        country: "",
+        introduce: "",
+    });
 
-    const onChangeName = (e) => {
-        setName(e.target.value);
+    const countRef = useRef(0);
+    const inputRef = useRef();
+    // const [name, setName] = useState("이름");
+    // const [birth, setBirth] = useState("");
+    // const [country, setCountry] = useState("");
+    // const [introduce, setIntroduce] = useState("");
+
+    const onChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value,
+        })
     }
 
-    const onSetBirth = (e) => {
-        setBirth(e.target.value);
-    }
-
-    const onSetCountry = (e) => {
-        setCountry(e.target.value);
-    }
-
-    const onIntroduce = (e) => {
-        setIntroduce(e.target.value);
+    const onSubmit = (e) => {
+        if(input.name === ""){
+            //이름을 입력하는 DOM요소에 포커스를 줘야함
+            console.log(inputRef.current);
+            inputRef.current.focus();
+        }
     }
 
     return (
         <div>
+            <button onClick={() => {
+                refObj.current++;
+                console.log(refObj.current);
+            }}>
+                클릭
+            </button>
             <div>
                 <input
-                    value={name}
-                    onChange={onChangeName}
+                    ref={inputRef}
+                    name="name"
+                    value={input.name}
+                    onChange={onChange}
                     placeholder="이름"
                 />
             </div>
 
             <div>
                 <input
-                    value={birth}
-                    onChange={onSetBirth}
+                    name="birth"
+                    value={input.birth}
+                    onChange={onChange}
                     type="date"
                 ></input>
             </div>
 
             <div>
-                <select value={country} onChange={onSetCountry}>
+                <select 
+                name="country"
+                value={input.country} 
+                onChange={onChange}
+                >
                     <option value=""></option>
                     <option value="kr">한국</option>
                     <option value="us">미국</option>
@@ -51,11 +73,15 @@ const Register = () => {
 
             <div>
                 <textarea
-                    name="자기소개"
-                    value={introduce}
-                    onChange={onIntroduce}/>
-                {introduce}
+                    name="introduce"
+                    value={input.introduce}
+                    onChange={onChange}/>
+                {input.introduce}
             </div>
+
+            <button onClick={onSubmit}>
+                제출
+            </button>
         </div>
     );
 };
