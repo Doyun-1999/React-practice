@@ -7,7 +7,7 @@ import List from './components/List'
 function App() {
 
   return (
-    <div>
+    <div className='App'>
       <Header/>
       <Editor></Editor>
       <List></List>
